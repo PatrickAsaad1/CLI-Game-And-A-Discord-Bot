@@ -34,7 +34,7 @@ from Bot.Utilities import (
     ServerInfo,
     QR,
     Morse,
-    AI,
+    Groq,
 )
 from Bot.Security import Password, EncryptDecrypt
 
@@ -155,7 +155,7 @@ SetChannel.setup(bot)
 ServerInfo.setup(bot)
 QR.setup(bot)
 Morse.setup(bot)
-AI.setup(bot)
+Groq.setup(bot)
 Advice.setup(bot)
 
 # Security
