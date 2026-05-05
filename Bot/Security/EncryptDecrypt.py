@@ -66,8 +66,6 @@ def setup(bot):
         def check(m):
             return m.author == ctx.author and isinstance(m.channel, discord.DMChannel)
 
-        await ctx.send("📩 Check your DMs to continue!")
-
         try:
             await ctx.author.send("🔒 Please enter the **encrypted message**:")
             encrypted_msg = await bot.wait_for("message", timeout=60.0, check=check)
