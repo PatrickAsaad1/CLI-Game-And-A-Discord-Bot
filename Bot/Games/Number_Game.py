@@ -14,7 +14,7 @@ def setup(bot):
 
         number = random.randint(1, 20)
 
-        await ctx.send(
+        await ctx.reply(
             "🎲 I'm thinking of a number from 1-20. You have 5 attempts!\n"
             "Type `quit` to stop playing."
         )
@@ -36,18 +36,18 @@ def setup(bot):
                 return
 
             if uguess == "quit":
-                await ctx.send("👋 Game cancelled!")
+                await ctx.reply("👋 Game cancelled!")
                 return
 
             if not uguess.isdigit():
-                await ctx.send("❌ Please enter a number between 1-20!")
+                await ctx.reply("❌ Please enter a number between 1-20!")
                 logging.warning(f"User {ctx.author} entered invalid guess: {uguess}")
                 continue
 
             guess_num = int(uguess)
 
             if guess_num < 1 or guess_num > 20:
-                await ctx.send("❌ Please enter a number between 1-20!")
+                await ctx.reply("❌ Please enter a number between 1-20!")
                 logging.warning(
                     f"User {ctx.author} entered out of range guess: {guess_num}"
                 )
@@ -56,28 +56,28 @@ def setup(bot):
             attempts += 1
 
             if guess_num < number:
-                await ctx.send("📈 Too low!")
+                await ctx.reply("📈 Too low!")
                 logging.info(f"User {ctx.author} guessed {guess_num} (too low)")
             elif guess_num > number:
-                await ctx.send("📉 Too high!")
+                await ctx.reply("📉 Too high!")
                 logging.info(f"User {ctx.author} guessed {guess_num} (too high)")
             else:
-                await ctx.send(
+                await ctx.reply(
                     f"🎉 **YOU GOT IT!** The number was {number}!\n"
                     f"You won in {attempts} attempt(s)!"
                 )
                 logging.info(f"User {ctx.author} guessed correctly: {number}")
                 break
         else:
-            await ctx.send(f"💀 **Out of attempts!** The number was {number}.")
+            await ctx.reply(f"💀 **Out of attempts!** The number was {number}.")
             logging.info(f"User {ctx.author} lost. The number was {number}")
 
-        await ctx.send("\nPlay again? (yes/no)")
+        await ctx.reply("\nPlay again? (yes/no)")
         try:
             msg = await bot.wait_for("message", timeout=30.0, check=check)
             if msg.content.lower() in ["yes", "y"]:
                 await number_game(ctx)
             else:
-                await ctx.send("Thanks for playing!")
+                await ctx.reply("Thanks for playing!")
         except asyncio.TimeoutError:
-            await ctx.send("Thanks for playing!")
+            await ctx.reply("Thanks for playing!")

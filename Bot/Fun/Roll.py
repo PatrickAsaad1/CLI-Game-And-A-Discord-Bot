@@ -10,4 +10,4 @@ def setup(bot):
     async def roll(ctx):
         logging.info(f"{ctx.author} used !roll command")
         result = random.randint(1, 6)
-        await ctx.send(f"🎲 You rolled a **{result}**!")
+        await ctx.reply(f"🎲 You rolled a **{result}**!")

@@ -11,5 +11,5 @@ def setup(bot):
     async def qr(ctx, *, text):
         logging.info(f"{ctx.author} chose to generate a QR code")
         qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={text}"
-        await ctx.send(qr_url)
+        await ctx.reply(qr_url)
         logging.info(f"QR code generated for: {text}")

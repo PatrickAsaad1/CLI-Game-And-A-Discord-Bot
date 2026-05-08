@@ -25,7 +25,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         add_allowed_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"✅ {channel.mention} added to allowed channels!")
+        await ctx.reply(f"✅ {channel.mention} added to allowed channels!")
         logging.info(f"{ctx.author} added {channel.name} in {ctx.guild.name}")
 
     @bot.command(name="removechannel", aliases=["RemoveChannel", "REMOVECHANNEL"])
@@ -34,7 +34,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         remove_allowed_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"🗑️ {channel.mention} removed from allowed channels!")
+        await ctx.reply(f"🗑️ {channel.mention} removed from allowed channels!")
         logging.info(f"{ctx.author} removed {channel.name} in {ctx.guild.name}")
 
     @bot.command(name="channels", aliases=["Channels", "CHANNELS"])
@@ -42,14 +42,14 @@ def setup(bot):
     async def list_channels(ctx):
         channels = get_allowed_channels(ctx.guild.id)
         if not channels:
-            await ctx.send("No channels set! Use `!setchannel #channel` to add one.")
+            await ctx.reply("No channels set! Use `!setchannel #channel` to add one.")
             return
         mentions = []
         for cid in channels:
             channel = ctx.guild.get_channel(cid)
             if channel:
                 mentions.append(channel.mention)
-        await ctx.send(f"📋 Allowed channels: {', '.join(mentions)}")
+        await ctx.reply(f"📋 Allowed channels: {', '.join(mentions)}")
 
     @bot.command(name="setlyrics", aliases=["SetLyrics", "SETLYRICS"])
     @commands.has_permissions(administrator=True)
@@ -57,7 +57,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         set_lyrics_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"✅ Lyrics will be sent to {channel.mention}!")
+        await ctx.reply(f"✅ Lyrics will be sent to {channel.mention}!")
         logging.info(
             f"{ctx.author} set lyrics channel to {channel.name} in {ctx.guild.name}"
         )
@@ -66,7 +66,7 @@ def setup(bot):
     @commands.has_permissions(administrator=True)
     async def remove_lyrics(ctx):
         remove_lyrics_channel(ctx.guild.id)
-        await ctx.send("🗑️ Lyrics channel removed!")
+        await ctx.reply("🗑️ Lyrics channel removed!")
         logging.info(f"{ctx.author} removed lyrics channel in {ctx.guild.name}")
 
     @bot.command(name="setrapnews", aliases=["SetRapNews", "SETRAPNEWS"])
@@ -75,7 +75,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         set_rap_news_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"✅ Rap news will be sent to {channel.mention}!")
+        await ctx.reply(f"✅ Rap news will be sent to {channel.mention}!")
         logging.info(
             f"{ctx.author} set rap news channel to {channel.name} in {ctx.guild.name}"
         )
@@ -86,7 +86,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         set_pet_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"✅ Hourly pet pictures will be sent to {channel.mention}!")
+        await ctx.reply(f"✅ Hourly pet pictures will be sent to {channel.mention}!")
         logging.info(
             f"{ctx.author} set pet channel to {channel.name} in {ctx.guild.name}"
         )
@@ -97,7 +97,7 @@ def setup(bot):
         if channel is None:
             channel = ctx.channel
         set_game_news_channel(ctx.guild.id, channel.id)
-        await ctx.send(f"✅ Gaming news will be sent to {channel.mention}!")
+        await ctx.trply(f"✅ Gaming news will be sent to {channel.mention}!")
         logging.info(
             f"{ctx.author} set game news channel to {channel.name} in {ctx.guild.name}"
         )
@@ -105,12 +105,12 @@ def setup(bot):
     @commands.has_permissions(administrator=True)
     async def remove_rap_news(ctx):
         remove_rap_news_channel(ctx.guild.id)
-        await ctx.send("🗑️ Rap news channel removed!")
+        await ctx.trply("🗑️ Rap news channel removed!")
         logging.info(f"{ctx.author} removed rap news channel in {ctx.guild.name}")
 
     @bot.command(name="removegamenews", aliases=["RemoveGameNews", "REMOVEGAMENEWS"])
     @commands.has_permissions(administrator=True)
     async def remove_game_news(ctx):
         remove_game_news_channel(ctx.guild.id)
-        await ctx.send("🗑️ Gaming news channel removed!")
+        await ctx.reply("🗑️ Gaming news channel removed!")
         logging.info(f"{ctx.author} removed game news channel in {ctx.guild.name}")

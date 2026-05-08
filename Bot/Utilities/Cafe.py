@@ -27,8 +27,7 @@ def setup(bot):
         menu_prices = {"pizza": 8, "burger": 7, "tea": 2, "coffee": 3, "latte": 4}
         menu_items = ", ".join(menu_prices.keys())
 
-        await ctx.send("Welcome to Pat Cafe!")
-        await asyncio.sleep(0.5)
+        await ctx.reply("Welcome to Pat Cafe!")
 
         orders = []
         total_price = 0
@@ -46,7 +45,7 @@ def setup(bot):
                 order = order_msg.content.lower().strip()
 
                 if order not in menu_prices:
-                    await ctx.send(
+                    await ctx.reply(
                         f"Sorry, we don't have '{order}' on the menu. Try again."
                     )
                     logging.warning(f"{ctx.author} requested invalid item: {order}")
@@ -54,11 +53,11 @@ def setup(bot):
 
                 max_qty = max_quantities.get(order, DEFAULT_MAX_QTY)
                 if order == "pizza":
-                    await ctx.send("🍕 Great choice! Pizza is delicious!")
+                    await ctx.reply("🍕 Great choice! Pizza is delicious!")
                 elif order == "burger":
-                    await ctx.send("🍔 Yummy! Burgers are always a good idea!")
+                    await ctx.reply("🍔 Yummy! Burgers are always a good idea!")
                 else:
-                    await ctx.send(f"☕ {order.title()} is a perfect pick-me-up!")
+                    await ctx.reply(f"☕ {order.title()} is a perfect pick-me-up!")
 
             except asyncio.TimeoutError:
                 await ctx.send("⏰ Time's up! Order cancelled.")
@@ -75,16 +74,16 @@ def setup(bot):
                     qty_input = qty_msg.content.strip()
 
                     if not qty_input.isdigit():
-                        await ctx.send("Please enter a valid number!")
+                        await ctx.reply("Please enter a valid number!")
                         logging.warning("User put a non-number input")
                         continue
 
                     qty = int(qty_input)
                     if qty <= 0:
                         logging.warning("User put a negative number")
-                        await ctx.send("Please enter a positive number!")
+                        await ctx.reply("Please enter a positive number!")
                     elif qty > max_qty:
-                        await ctx.send(
+                        await ctx.reply(
                             f"Sorry, we can only serve up to {max_qty} {order}s at a time."
                         )
                         logging.warning(
@@ -110,13 +109,13 @@ def setup(bot):
             else:
                 item_word = order
 
-            await ctx.send(f"✓ Added {qty} {item_word} to your order.")
+            await ctx.reply(f"✓ Added {qty} {item_word} to your order.")
             logging.info(
                 f"Added {qty} x {order} to order. Current total: ${total_price:.2f}"
             )
 
             try:
-                await ctx.send("Would you like to order something else? (y/n):")
+                await ctx.reply("Would you like to order something else? (y/n):")
                 more_msg = await bot.wait_for("message", timeout=30.0, check=check)
 
                 if returnx(more_msg.content):

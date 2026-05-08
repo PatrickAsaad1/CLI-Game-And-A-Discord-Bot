@@ -16,17 +16,17 @@ def setup(bot):
         if lyrics_channel and ctx.channel.id != lyrics_channel:
             channel = ctx.guild.get_channel(lyrics_channel)
             if channel:
-                await ctx.send(f"❌ This command only works in {channel.mention}!")
+                await ctx.reply(f"❌ This command only works in {channel.mention}!")
             return
 
         if not query:
-            await ctx.send(
+            await ctx.reply(
                 "❌ Usage: `!lyrics Artist - Song Name`\nExample: `!lyrics Coldplay - Yellow`"
             )
             return
 
         if " - " not in query:
-            await ctx.send("❌ Please use format: `!lyrics Artist - Song Name`")
+            await ctx.reply("❌ Please use format: `!lyrics Artist - Song Name`")
             return
 
         try:
@@ -51,19 +51,19 @@ def setup(bot):
                         break
 
             if not lyrics:
-                await ctx.send(f"❌ Lyrics not found for **{song}** by **{artist}**")
+                await ctx.reply(f"❌ Lyrics not found for **{song}** by **{artist}**")
                 return
 
             if len(lyrics) > 1900:
-                await ctx.send(f"🎵 **{song}** by **{artist}**\n")
+                await ctx.reply(f"🎵 **{song}** by **{artist}**\n")
                 for i in range(0, len(lyrics), 1900):
                     chunk = lyrics[i : i + 1900]
                     await ctx.send(chunk)
             else:
-                await ctx.send(f"🎵 **{song}** by **{artist}**\n\n{lyrics}")
+                await ctx.reply(f"🎵 **{song}** by **{artist}**\n\n{lyrics}")
 
             logging.info(f"Lyrics shown for {song} by {artist}")
 
         except Exception as e:
             logging.error(f"Lyrics API error: {e}")
-            await ctx.send("❌ Could not fetch lyrics. Try again later!")
+            await ctx.reply("❌ Could not fetch lyrics. Try again later!")

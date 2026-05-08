@@ -8,4 +8,4 @@ def setup(bot):
     @bot.command(name="ping")
     async def ping(ctx):
         logging.info(f"Ping command by: {ctx.author}")
-        await ctx.send(f"🏓 Pong! {round(bot.latency * 1000)}ms")
+        await ctx.reply(f"🏓 Pong! {round(bot.latency * 1000)}ms")

@@ -15,7 +15,7 @@ def setup(bot):
         def check(m):
             return m.author == ctx.author and m.channel == ctx.channel
 
-        await ctx.send(
+        await ctx.reply(
             "🔢 How many passwords do you want to generate? (Max: 10, type `quit` to cancel)"
         )
 
@@ -23,21 +23,21 @@ def setup(bot):
             try:
                 msg = await bot.wait_for("message", timeout=30.0, check=check)
                 if msg.content.lower() == "quit":
-                    await ctx.send("👋 Cancelled!")
+                    await ctx.reply("👋 Cancelled!")
                     return
 
                 if not msg.content.isdigit():
-                    await ctx.send("❌ Please enter a valid number! (Max: 10)")
+                    await ctx.reply("❌ Please enter a valid number! (Max: 10)")
                     continue
 
                 manypass = int(msg.content)
 
                 if manypass <= 0:
-                    await ctx.send("❌ Number must be positive!")
+                    await ctx.reply("❌ Number must be positive!")
                     continue
 
                 if manypass > 10:
-                    await ctx.send("❌ Maximum is 10 passwords!")
+                    await ctx.reply("❌ Maximum is 10 passwords!")
                     continue
 
                 break
@@ -56,21 +56,21 @@ def setup(bot):
             try:
                 msg = await bot.wait_for("message", timeout=30.0, check=check)
                 if msg.content.lower() == "quit":
-                    await ctx.send("👋 Cancelled!")
+                    await ctx.reply("👋 Cancelled!")
                     return
 
                 if not msg.content.isdigit():
-                    await ctx.send("❌ Please enter a valid number!")
+                    await ctx.reply("❌ Please enter a valid number!")
                     continue
 
                 manychar = int(msg.content)
 
                 if manychar < 4:
-                    await ctx.send("❌ Password must be at least 4 characters!")
+                    await ctx.reply("❌ Password must be at least 4 characters!")
                     continue
 
                 if manychar > 50:
-                    await ctx.send("❌ Maximum is 50 characters!")
+                    await ctx.reply("❌ Maximum is 50 characters!")
                     continue
 
                 break
@@ -109,5 +109,5 @@ def setup(bot):
             logging.info(f"{ctx.author} successfully generated {manypass} passwords")
 
         except:
-            await ctx.send("❌ I couldn't DM you! Check your privacy settings.")
+            await ctx.reply("❌ I couldn't DM you! Check your privacy settings.")
             logging.error(f"Couldn't DM {ctx.author} for password generation")
