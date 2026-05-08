@@ -11,7 +11,7 @@ def setup(bot):
         """Get weather for any city in the world."""
 
         if not city:
-            await ctx.send(
+            await ctx.reply(
                 "❌ Please provide a city: `!weather Cairo` or `!weather London`"
             )
             return
@@ -79,11 +79,11 @@ def setup(bot):
             msg += f"💨 Wind: {wind} km/h"
 
             logging.info(f"Weather sent for {location_str}: {temp}°C, {desc}")
-            await ctx.send(msg)
+            await ctx.reply(msg)
 
         except requests.exceptions.Timeout:
-            await ctx.send("❌ Request timed out. Try again later.")
+            await ctx.reply("❌ Request timed out. Try again later.")
             logging.error("Weather API timeout")
         except Exception as e:
-            await ctx.send("❌ Couldn't fetch weather. Try again later!")
+            await ctx.reply("❌ Couldn't fetch weather. Try again later!")
             logging.error(f"Weather error: {e}")

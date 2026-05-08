@@ -94,7 +94,7 @@ def setup(bot):
             icon_url=ctx.author.avatar.url if ctx.author.avatar else None,
         )
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
 
 async def send_command_help(ctx, command_name):
@@ -773,4 +773,4 @@ async def send_command_help(ctx, command_name):
         text=f"Requested by {ctx.author.name}",
         icon_url=ctx.author.avatar.url if ctx.author.avatar else None,
     )
-    await ctx.send(embed=embed)
+    await ctx.reply(embed=embed)

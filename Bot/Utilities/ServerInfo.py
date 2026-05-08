@@ -26,4 +26,4 @@ def setup(bot):
         embed.add_field(name="💬 Channels", value=len(guild.channels), inline=True)
         embed.add_field(name="🎭 Roles", value=len(guild.roles), inline=True)
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)

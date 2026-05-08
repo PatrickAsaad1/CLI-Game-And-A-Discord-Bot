@@ -14,10 +14,10 @@ def setup(bot):
                 "https://api.thecatapi.com/v1/images/search", timeout=30.0
             )
             data = response.json()
-            await ctx.send(data[0]["url"])
+            await ctx.reply(data[0]["url"])
             logging.info(f"Cat pic was sent to {ctx.author}")
         except:
-            await ctx.send("Couldn't get a cat pic, try again later!")
+            await ctx.reply("Couldn't get a cat pic, try again later!")
             logging.error("Cat API error")
 
     @bot.command(name="dog", aliases=["Dog", "DOG"])
@@ -26,8 +26,8 @@ def setup(bot):
         try:
             response = requests.get("https://dog.ceo/api/breeds/image/random")
             data = response.json()
-            await ctx.send(data["message"])
+            await ctx.reply(data["message"])
             logging.info(f"Dog pic was sent to {ctx.author}")
         except:
-            await ctx.send("Couldn't get a dog pic, try again later!")
+            await ctx.reply("Couldn't get a dog pic, try again later!")
             logging.error("Dog API error")

@@ -14,10 +14,10 @@ def setup(bot):
         logging.info(f"User {ctx.author} used !say {msg}")
         try:
             await ctx.author.send(msg)
-            await ctx.send("✅ Check your DMs!")
+            await ctx.reply("✅ Check your DMs!")
             logging.info(f"{ctx.author} made the bot say {msg}")
         except:
-            await ctx.send("❌ I couldn't DM you! Check your privacy settings.")
+            await ctx.reply("❌ I couldn't DM you! Check your privacy settings.")
             logging.error(f"Couldn't dm {ctx.author}")
 
     @bot.command(name="repeat", aliases=["Repeat", "REPEAT", "spam", "Spam", "SPAM"])
@@ -28,7 +28,7 @@ def setup(bot):
         def check(m):
             return m.author == ctx.author and m.channel == ctx.channel
 
-        await ctx.send(
+        await ctx.reply(
             "🔢 How many times do you want that message to be sent? (Max: 10)"
         )
 

@@ -13,8 +13,8 @@ def setup(bot):
             response = requests.get("https://api.adviceslip.com/advice")
             json_data = response.json()
             advice_text = json_data["slip"]["advice"]
-            await ctx.send(f"💡 **{advice_text}**")
+            await ctx.reply(f"💡 **{advice_text}**")
             logging.info(f"{ctx.author} used !advice and got: {advice_text}")
         except Exception as e:
             logging.error(f"Advice API error: {e}")
-            await ctx.send("❌ Could not fetch advice right now. Try again later!")
+            await ctx.reply("❌ Could not fetch advice right now. Try again later!")

@@ -12,7 +12,7 @@ def setup(bot):
         try:
             response = requests.get("https://zenquotes.io/api/random")
             json_data = response.json()
-            await ctx.send(f"✨ {json_data[0]['q']} — *{json_data[0]['a']}*")
+            await ctx.reply(f"✨ {json_data[0]['q']} — *{json_data[0]['a']}*")
 
             logging.info(
                 f"{ctx.author} used !quote and got: {json_data[0]['q'][:50]}..."
@@ -20,4 +20,4 @@ def setup(bot):
 
         except Exception as e:
             logging.error(f"Quote API error: {e}")
-            await ctx.send("❌ Could not fetch a quote right now. Try again later!")
+            await ctx.reply("❌ Could not fetch a quote right now. Try again later!")

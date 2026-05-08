@@ -17,11 +17,11 @@ def setup(bot):
     async def ask(ctx, *, msg: str = None):
         """Ask Groq AI a question."""
         if not msg:
-            await ctx.send("❌ Ask me something! Example: `!ask What is Python?`")
+            await ctx.reply("❌ Ask me something! Example: `!ask What is Python?`")
             return
 
         if not GROQ_API_KEY:
-            await ctx.send(
+            await ctx.reply(
                 "❌ This feature is currently unavailable. Please contact the bot owner."
             )
             logging.error("Groq API key not found")
@@ -55,11 +55,11 @@ def setup(bot):
             if len(ai_reply) > 1900:
                 ai_reply = ai_reply[:1900] + "..."
 
-            await ctx.send(ai_reply)
+            await ctx.reply(ai_reply)
             logging.info(f"{ctx.author} used Groq: {msg[:50]}")
 
         except Exception as e:
-            await ctx.send("❌ Could not fetch AI response. Try again later!")
+            await ctx.reply("❌ Could not fetch AI response. Try again later!")
             logging.error(f"Groq error: {e}")
 
     @bot.command(name="forget", aliases=["Forget", "FORGET"])
@@ -73,5 +73,5 @@ def setup(bot):
                     "content": "You are a helpful assistant. Keep answers concise.",
                 }
             ]
-        await ctx.send("🧹 Conversation history cleared!")
+        await ctx.reply("🧹 Conversation history cleared!")
         logging.info(f"{ctx.author} cleared their Groq conversation history")

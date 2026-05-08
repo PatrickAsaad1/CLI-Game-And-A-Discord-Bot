@@ -14,4 +14,4 @@ def setup(bot):
         """Flip a coin and get heads or tails."""
         coin = random.choice(["Heads", "Tails"])
         logging.info(f"{ctx.author} flipped a coin: {coin}")
-        await ctx.send(f"🪙 The coin landed on **{coin}**!")
+        await ctx.reply(f"🪙 The coin landed on **{coin}**!")

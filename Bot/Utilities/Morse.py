@@ -53,7 +53,7 @@ def setup(bot):
         def check(m):
             return m.author == ctx.author and m.channel == ctx.channel
         if msg == "":
-            await ctx.send("❌ Please enter something to convert to Morse code!")
+            await ctx.reply("❌ Please enter something to convert to Morse code!")
             return
         text = msg.upper()
         morse_text = []
@@ -63,5 +63,5 @@ def setup(bot):
             else:
                 morse_text.append(char)
         result = " ".join(morse_text)
-        await ctx.send(f"📡 **Morse Code:**\n`{result}`")
+        await ctx.reply(f"📡 **Morse Code:**\n`{result}`")
         logging.info(f"Morse code generated for: {text}")

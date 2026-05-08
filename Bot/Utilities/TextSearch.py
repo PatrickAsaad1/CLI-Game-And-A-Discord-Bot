@@ -14,7 +14,7 @@ def setup(bot):
         def check(m):
             return m.author == ctx.author and m.channel == ctx.channel
 
-        await ctx.send(
+        await ctx.reply(
             "📝 Drop a big chunk of text below, then tell me a word and I'll hunt it down for you!\n"
             "Type `quit` to cancel."
         )
@@ -24,24 +24,24 @@ def setup(bot):
             fat_text = msg.content
 
             if fat_text.lower() == "quit":
-                await ctx.send("👋 Cancelled!")
+                await ctx.reply("👋 Cancelled!")
                 return
 
         except asyncio.TimeoutError:
-            await ctx.send("⏰ Time's up! Cancelled.")
+            await ctx.reply("⏰ Time's up! Cancelled.")
             return
 
         logging.info(f"{ctx.author} submitted text for search")
 
         if len(fat_text) > 50000:
-            await ctx.send(
+            await ctx.reply(
                 "⚠️ Warning: Very large text detected. This might slow down the search.\n"
                 "Continue anyway? (y/n)"
             )
             try:
                 msg = await bot.wait_for("message", timeout=30.0, check=check)
                 if msg.content.lower() not in ["y", "yes"]:
-                    await ctx.send("👋 Cancelled!")
+                    await ctx.reply("👋 Cancelled!")
                     return
             except asyncio.TimeoutError:
                 await ctx.send("⏰ Time's up! Cancelled.")
@@ -57,7 +57,7 @@ def setup(bot):
                 search_word = msg.content
 
                 if search_word.lower() == "quit":
-                    await ctx.send("👋 Cancelled!")
+                    await ctx.reply("👋 Cancelled!")
                     return
 
             except asyncio.TimeoutError:
@@ -65,13 +65,13 @@ def setup(bot):
                 return
 
             if search_word in fat_text:
-                await ctx.send(f"✅ Found **'{search_word}'** in the text!")
+                await ctx.reply(f"✅ Found **'{search_word}'** in the text!")
                 logging.info(f"{ctx.author} found '{search_word}' in the text")
             else:
-                await ctx.send(f"❌ **'{search_word}'** not found in the text.")
+                await ctx.reply(f"❌ **'{search_word}'** not found in the text.")
                 logging.info(f"{ctx.author} did not find '{search_word}' in the text")
 
-            await ctx.send("\n🔍 Do you want to search for another word? (y/n)")
+            await ctx.reply("\n🔍 Do you want to search for another word? (y/n)")
             try:
                 msg = await bot.wait_for("message", timeout=30.0, check=check)
                 again = msg.content.lower()
@@ -79,42 +79,39 @@ def setup(bot):
                 if again in ["y", "yes"]:
                     continue
                 else:
-                    await ctx.send("👋 Thanks for using text search!")
+                    await ctx.reply("👋 Thanks for using text search!")
                     return
 
             except asyncio.TimeoutError:
                 await ctx.send("⏰ Time's up! Thanks for using text search!")
-            await ctx.send("\n🔄 Want to see a secret word reverser? (y/n)")
+            await ctx.reply("\n🔄 Want to see a secret word reverser? (y/n)")
             try:
                 msg = await bot.wait_for("message", timeout=30.0, check=check)
                 secret = msg.content.lower()
 
                 if secret in ["y", "yes"]:
                     logging.info(f"{ctx.author} chose to use word reverser")
-                    await ctx.send("Enter a word to reverse:")
+                    await ctx.reply("Enter a word to reverse:")
 
                     try:
                         msg = await bot.wait_for("message", timeout=30.0, check=check)
                         word = msg.content
 
                         if word.lower() == "quit":
-                            await ctx.send("👋 Skipping reverser...")
+                            await ctx.reply("👋 Skipping reverser...")
                         elif word:
                             reversed_word = word[::-1]
-                            await ctx.send(f"🔄 Reversed: **{reversed_word}**")
+                            await ctx.reply(f"🔄 Reversed: **{reversed_word}**")
                             logging.info(
                                 f"{ctx.author} reversed '{word}' to '{reversed_word}'"
                             )
-                        else:
-                            await ctx.send("❌ No word entered!")
-
                     except asyncio.TimeoutError:
                         await ctx.send("⏰ Time's up! Skipping reverser...")
 
                 elif secret in ["n", "no"]:
                     logging.info(f"{ctx.author} skipped word reverser")
                 else:
-                    await ctx.send("❌ Invalid choice! Skipping...")
+                    await ctx.reply("❌ Invalid choice! Skipping...")
 
             except asyncio.TimeoutError:
                 await ctx.send("⏰ Time's up! Skipping reverser...")

@@ -16,8 +16,8 @@ def setup(bot):
             headers = {"Accept": "application/json"}
             response = requests.get("https://icanhazdadjoke.com/", headers=headers)
             json_data = response.json()
-            await ctx.send(f"😂 **{json_data['joke']}**")
+            await ctx.reply(f"😂 **{json_data['joke']}**")
             logging.info("Joke sent successfully")
         except:
-            await ctx.send("❌ Couldn't fetch a joke right now. Try again later!")
+            await ctx.reply("❌ Couldn't fetch a joke right now. Try again later!")
             logging.error("Joke API error")
