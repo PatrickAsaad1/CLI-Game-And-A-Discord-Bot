@@ -1,6 +1,7 @@
 # Bot/Fun/MCTiers.py
 from Utils.Logger import setup_logging
 import requests
+from requests.exceptions import Timeout as RequestsTimeout
 import discord
 import asyncio
 import urllib.parse
@@ -96,7 +97,7 @@ def setup(bot):
             await ctx.send(embed=embed)
             logging.info(f"MC info sent for {data['name']}")
 
-        except asyncio.TimeoutError:
+        except RequestsTimeout:
             await ctx.send("❌ Request timed out. Try again later!")
             logging.error("MCTiers API timeout")
         except Exception as e:
