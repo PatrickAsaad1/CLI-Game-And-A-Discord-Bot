@@ -2,8 +2,25 @@
 from Utils.Logger import setup_logging
 import requests
 import discord
+import asyncio
+import urllib.parse
 
 logging = setup_logging()
+
+
+def truncate_field(value, max_len=1024):
+    """Trim a string to max_len characters for Discord embed fields."""
+    if len(value) <= max_len:
+        return value
+    return value[: max_len - 15] + "… (truncated)"
+
+
+def fetch_mc_profile(username):
+    """Synchronous HTTP call for MCTiers API."""
+    encoded = urllib.parse.quote_plus(username)
+    return requests.get(
+        f"https://mctiers.com/api/v2/profile/by-name/{encoded}", timeout=10
+    )
 
 
 def setup(bot):
@@ -11,16 +28,13 @@ def setup(bot):
     async def mc(ctx, *, username: str = None):
         """Get Minecraft player info from MCTiers."""
         if not username:
-            await ctx.send("❌ Please provide a username! Example: `!mc Notch`")
-            logging.error(f"{ctx.author} used !mc command without username")
+            await ctx.send("❌ Please provide a username! Example: `!mc uku3lig`")
             return
 
         logging.info(f"{ctx.author} used !mc command for: {username}")
 
         try:
-            response = requests.get(
-                f"https://mctiers.com/api/v2/profile/by-name/{username}", timeout=10
-            )
+            response = await asyncio.to_thread(fetch_mc_profile, username)
 
             if response.status_code == 404:
                 await ctx.send(f"❌ Player **{username}** not found!")
@@ -41,7 +55,9 @@ def setup(bot):
             embed.add_field(
                 name="🌍 Region", value=data.get("region", "Unknown"), inline=True
             )
-            embed.add_field(name="⭐ Points", value=data.get("points", 0), inline=True)
+            embed.add_field(
+                name="⭐ Points", value=str(data.get("points", 0)), inline=True
+            )
             embed.add_field(
                 name="🏆 Overall Rank",
                 value=f"#{data.get('overall', 'N/A')}",
@@ -62,19 +78,25 @@ def setup(bot):
                         f"**{mode.replace('_', ' ').title()}**\n"
                         f"Tier {stats['tier']} • Pos {stats['pos']} • {status}\n"
                     )
-                embed.add_field(name="🎮 Gamemodes", value=rankings_text, inline=False)
+                embed.add_field(
+                    name="🎮 Gamemodes",
+                    value=truncate_field(rankings_text),
+                    inline=False,
+                )
 
             if data.get("badges"):
                 badges_text = "\n".join(
                     [f"🏅 {b['title']} — {b['desc']}" for b in data["badges"]]
                 )
-                embed.add_field(name="🏅 Badges", value=badges_text, inline=False)
+                embed.add_field(
+                    name="🏅 Badges", value=truncate_field(badges_text), inline=False
+                )
 
             embed.set_footer(text="Data from MCTiers API")
             await ctx.send(embed=embed)
             logging.info(f"MC info sent for {data['name']}")
 
-        except requests.exceptions.Timeout:
+        except asyncio.TimeoutError:
             await ctx.send("❌ Request timed out. Try again later!")
             logging.error("MCTiers API timeout")
         except Exception as e:
