@@ -5,6 +5,7 @@ from requests.exceptions import Timeout as RequestsTimeout
 import discord
 import asyncio
 import urllib.parse
+import json
 
 logging = setup_logging()
 
@@ -100,6 +101,13 @@ def setup(bot):
         except RequestsTimeout:
             await ctx.send("❌ Request timed out. Try again later!")
             logging.error("MCTiers API timeout")
-        except Exception as e:
+        except (
+            requests.exceptions.RequestException,
+            json.JSONDecodeError,
+            ValueError,
+        ) as e:
             await ctx.send("❌ Could not fetch Minecraft info. Try again later!")
             logging.error(f"MCTiers API error: {e}")
+        except Exception as e:
+            logging.error(f"MCTiers unexpected error: {e}")
+            raise
