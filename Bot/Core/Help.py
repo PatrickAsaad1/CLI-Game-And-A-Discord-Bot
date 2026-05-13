@@ -38,6 +38,7 @@ def setup(bot):
 
         fun = (
             "`!quote` - Get a random inspirational quote\n"
+            "`!mc <username>` - Minecraft player stats from MCTiers\n"
             "`!picker` - Create a list and pick random items\n"
             "`!cat` - Get a random cat picture\n"
             "`!dog` - Get a random dog picture\n"
@@ -108,7 +109,28 @@ async def send_command_help(ctx, command_name):
         )
         embed.add_field(name="Usage", value="`!ping`", inline=False)
         embed.add_field(name="Example", value="`!ping` → `🏓 Pong! 47ms`", inline=False)
-
+    elif command_name in ["mc", "mcinfo"]:
+        embed = discord.Embed(
+            title="🎮 `!mc`",
+            description="Get Minecraft player stats from the MCTiers ranking system.",
+            color=discord.Color.green(),
+        )
+        embed.add_field(name="Usage", value="`!mc <username>`", inline=False)
+        embed.add_field(
+            name="Aliases",
+            value="`!Mc`, `!MC`, `!mcinfo`",
+            inline=False,
+        )
+        embed.add_field(
+            name="Shows",
+            value="UUID, region, points, overall rank, Discord ID, gamemode tiers, badges",
+            inline=False,
+        )
+        embed.add_field(
+            name="Example",
+            value="`!mc uku3lig`",
+            inline=False,
+        )
     elif command_name == "calc":
         embed = discord.Embed(
             title="🧮 `!calc`",
@@ -135,7 +157,6 @@ async def send_command_help(ctx, command_name):
             value="Calculations are performed left-to-right. Standard order of operations is not applied.",
             inline=False,
         )
-
     elif command_name == "rps":
         embed = discord.Embed(
             title="🪨📄✂️ `!rps`",
@@ -153,7 +174,6 @@ async def send_command_help(ctx, command_name):
             value="Type `yes` when asked if you want to play with a friend, then mention the user you wish to challenge.\nChoices are submitted privately via DM.\nOnly the final result is announced in the channel.",
             inline=False,
         )
-
     elif command_name == "guess":
         embed = discord.Embed(
             title="🎲 `!guess`",
@@ -171,7 +191,6 @@ async def send_command_help(ctx, command_name):
             value="Select a difficulty level, then guess the number.\nCorrect guess: +1 point\nIncorrect guess: -1 point (if score > 0)\nType `quit` to exit the game.",
             inline=False,
         )
-
     elif command_name == "number":
         embed = discord.Embed(
             title="🔢 `!number`",
@@ -184,7 +203,6 @@ async def send_command_help(ctx, command_name):
             value="The bot will select a random number between 1 and 20.\nYou have 5 attempts to guess correctly.\nThe bot will tell you if your guess is too high or too low.\nType `quit` to exit the game.",
             inline=False,
         )
-
     elif command_name == "say":
         embed = discord.Embed(
             title="📨 `!say`",
@@ -207,7 +225,6 @@ async def send_command_help(ctx, command_name):
             value="If your DMs are closed, the bot will be unable to send the message and will notify you in the channel.",
             inline=False,
         )
-
     elif command_name == "repeat":
         embed = discord.Embed(
             title="🔁 `!repeat`",
@@ -235,7 +252,6 @@ async def send_command_help(ctx, command_name):
             value="Maximum is 10 times to prevent spam. If your DMs are closed, the command will fail.",
             inline=False,
         )
-
     elif command_name == "reply":
         embed = discord.Embed(
             title="💬 `!reply`",
@@ -251,7 +267,6 @@ async def send_command_help(ctx, command_name):
             value="`!reply Hello!` → The bot replies to your message with 'Hello!'",
             inline=False,
         )
-
     elif command_name == "quote":
         embed = discord.Embed(
             title="💬 `!quote`",
@@ -274,7 +289,6 @@ async def send_command_help(ctx, command_name):
             value="Quotes are fetched from ZenQuotes API. Requires internet connection.",
             inline=False,
         )
-
     elif command_name in ["passgen", "password", "genpass", "bgen"]:
         embed = discord.Embed(
             title="🔑 `!passgen`",
@@ -302,7 +316,6 @@ async def send_command_help(ctx, command_name):
             value="Passwords are sent via DM for privacy. Type `quit` to cancel at any time.",
             inline=False,
         )
-
     elif command_name == "search":
         embed = discord.Embed(
             title="🔍 `!search`",
@@ -325,7 +338,6 @@ async def send_command_help(ctx, command_name):
             value="Maximum text length is 50,000 characters. Type `quit` to cancel.",
             inline=False,
         )
-
     elif command_name in ["encrypt", "enc"]:
         embed = discord.Embed(
             title="🔒 `!encrypt`",
@@ -353,7 +365,6 @@ async def send_command_help(ctx, command_name):
             value="**SAVE THE KEY!** Without it, the message cannot be decrypted. The bot does not store keys.",
             inline=False,
         )
-
     elif command_name in ["decrypt", "dec"]:
         embed = discord.Embed(
             title="🔓 `!decrypt`",
@@ -376,7 +387,6 @@ async def send_command_help(ctx, command_name):
             value="For privacy, the entire process happens in DMs. The bot never sees your decrypted message in the channel.",
             inline=False,
         )
-
     elif command_name in ["picker", "wheel"]:
         embed = discord.Embed(
             title="🎲 `!picker`",
@@ -404,7 +414,6 @@ async def send_command_help(ctx, command_name):
             value="`!picker` → Add 'Pizza', 'Burger', 'Sushi' → `done` → Bot picks: 'Sushi'",
             inline=False,
         )
-
     elif command_name in ["cafe", "Cafe", "CAFE"]:
         embed = discord.Embed(
             title="🏪 `!cafe`",
@@ -433,7 +442,6 @@ async def send_command_help(ctx, command_name):
             value="Type `quit` at any time to cancel your order.",
             inline=False,
         )
-
     elif command_name in ["remind", "reminder"]:
         embed = discord.Embed(
             title="⏰ `!remind`",
@@ -461,7 +469,6 @@ async def send_command_help(ctx, command_name):
             value="Maximum reminder is 2 hours. Reminders are lost if the bot restarts.",
             inline=False,
         )
-
     elif command_name == "weather":
         embed = discord.Embed(
             title="🌤️ `!weather`",
@@ -484,7 +491,6 @@ async def send_command_help(ctx, command_name):
             value="Uses Open-Meteo API. Works for virtually any city worldwide.",
             inline=False,
         )
-
     elif command_name in ["cat", "kitty", "meow"]:
         embed = discord.Embed(
             title="🐱 `!cat`",
@@ -497,7 +503,6 @@ async def send_command_help(ctx, command_name):
             value="`!Cat`, `!CAT`, `!kitty`, `!meow`",
             inline=False,
         )
-
     elif command_name in ["dog", "Dog", "DOG"]:
         embed = discord.Embed(
             title="🐶 `!dog`",
@@ -510,7 +515,6 @@ async def send_command_help(ctx, command_name):
             value="`!Dog`, `!DOG`",
             inline=False,
         )
-
     elif command_name in ["coinflip", "cf", "flip", "coin"]:
         embed = discord.Embed(
             title="🪙 `!coinflip`",
@@ -528,7 +532,6 @@ async def send_command_help(ctx, command_name):
             value="`!coinflip` → 🪙 The coin landed on **Heads**!",
             inline=False,
         )
-
     elif command_name in ["roll", "dice"]:
         embed = discord.Embed(
             title="🎲 `!roll`",
@@ -546,7 +549,6 @@ async def send_command_help(ctx, command_name):
             value="`!roll` → 🎲 You rolled a **4**!",
             inline=False,
         )
-
     elif command_name in ["joke", "dadjoke"]:
         embed = discord.Embed(
             title="😂 `!joke`",
@@ -564,7 +566,6 @@ async def send_command_help(ctx, command_name):
             value="`!joke` → 😂 Why don't scientists trust atoms? Because they make up everything!",
             inline=False,
         )
-
     elif command_name in ["meme", "memes"]:
         embed = discord.Embed(
             title="😂 `!meme`",
@@ -582,7 +583,6 @@ async def send_command_help(ctx, command_name):
             value="`!meme` → Sends a random meme image",
             inline=False,
         )
-
     elif command_name in ["serverinfo", "si"]:
         embed = discord.Embed(
             title="📊 `!serverinfo`",
@@ -600,7 +600,6 @@ async def send_command_help(ctx, command_name):
             value="Server name, owner, member count, creation date, channels, and roles",
             inline=False,
         )
-
     elif command_name in ["qr", "qrcode"]:
         embed = discord.Embed(
             title="🔲 `!qr`",
@@ -618,7 +617,6 @@ async def send_command_help(ctx, command_name):
             value="`!qr https://github.com` → Sends a QR code image",
             inline=False,
         )
-
     elif command_name == "morse":
         embed = discord.Embed(
             title="📡 `!morse`",
@@ -636,7 +634,6 @@ async def send_command_help(ctx, command_name):
             value="`!morse hello` → .... . .-.. .-.. ---",
             inline=False,
         )
-
     elif command_name in ["ask", "ai"]:
         embed = discord.Embed(
             title="🤖 `!ask`",
@@ -659,7 +656,6 @@ async def send_command_help(ctx, command_name):
             value="Uses Pollinations AI API. Responses may vary in quality.",
             inline=False,
         )
-
     elif command_name in ["advice"]:
         embed = discord.Embed(
             title="💡 `!advice`",
@@ -677,7 +673,6 @@ async def send_command_help(ctx, command_name):
             value="`!advice` → 💡 Never regret anything that made you smile.",
             inline=False,
         )
-
     elif command_name in ["lyrics", "lyric"]:
         embed = discord.Embed(
             title="🎵 `!lyrics`",
@@ -702,7 +697,6 @@ async def send_command_help(ctx, command_name):
             value="Uses lyrics.ovh API. Use `Artist - Song` format.",
             inline=False,
         )
-
     elif command_name in ["setchannel", "removechannel", "channels"]:
         embed = discord.Embed(
             title="⚙️ Channel Management",
@@ -744,7 +738,6 @@ async def send_command_help(ctx, command_name):
             value="Administrator only.",
             inline=False,
         )
-
     elif command_name == "help":
         embed = discord.Embed(
             title="📚 `!help`",
@@ -756,7 +749,6 @@ async def send_command_help(ctx, command_name):
             value="`!help` — Display all available commands\n`!help <command>` — View detailed information about a specific command",
             inline=False,
         )
-
     else:
         embed = discord.Embed(
             title="❌ Command Not Found",

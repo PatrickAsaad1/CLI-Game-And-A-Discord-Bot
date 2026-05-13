@@ -23,6 +23,7 @@ from Bot.Fun import (
     Lyrics,
     RapNews,
     GameNews,
+    MCTiers,
 )
 from Bot.Utilities import (
     Calculator,
@@ -144,6 +145,10 @@ Roll.setup(bot)
 Joke.setup(bot)
 Meme.setup(bot)
 Lyrics.setup(bot)
+# RapNews.setup(bot)
+# GameNews.setup(bot) We don't need them they are already at on_ready, so they will work without setup(bot)
+Advice.setup(bot)
+MCTiers.setup(bot)
 
 # Utilities
 Calculator.setup(bot)
@@ -156,7 +161,6 @@ ServerInfo.setup(bot)
 QR.setup(bot)
 Morse.setup(bot)
 Groq.setup(bot)
-Advice.setup(bot)
 
 # Security
 Password.setup(bot)

@@ -45,7 +45,7 @@ def setup(bot):
             geo_data = geo_response.json()
 
             if not geo_data.get("results"):
-                await ctx.send(f"❌ City '{city}' not found! Check spelling.")
+                await ctx.reply(f"❌ City '{city}' not found! Check spelling.")
                 return
 
             location = geo_data["results"][0]
